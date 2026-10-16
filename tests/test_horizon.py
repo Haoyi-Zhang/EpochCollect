@@ -315,6 +315,11 @@ class HorizonTest(unittest.TestCase):
         raw = fork(2,7); raw['case']='test'; raw['family']='fork'
         good = run_reference(raw)
         validate_row(good,raw,'weighted')
+        for field, value in (('family','allreduce'),('ports',10000),('ports',True)):
+            bad = copy.deepcopy(good); bad[field] = value
+            with self.subTest(field=field,value=value):
+                with self.assertRaisesRegex(ValueError,'identity mismatch'):
+                    validate_row(bad,raw,'weighted')
         bad = copy.deepcopy(good)
         key = next(iter(bad['horizon']['frontier']))
         bad['horizon']['frontier'][key] += 1

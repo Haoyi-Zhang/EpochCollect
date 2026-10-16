@@ -20,6 +20,39 @@ RAW = {'case': 'owned-one-task', 'family': 'owned', 'ports': 2,
 
 
 class EvidenceGateTests(unittest.TestCase):
+    def test_finite_deadline_witness_belongs_to_frontier(self):
+        from verify_workflow import validate_decision
+        good = dict(feasible=True,unbounded=False,maximum_setup='2',epochs=3,service=21)
+        validate_decision(good,{3:21},25)
+        for fields in (dict(epochs=1,service=25),dict(epochs=True),
+                       dict(service=True),dict(service=21.0),dict(maximum_setup=True)):
+            with self.subTest(fields=fields):
+                with self.assertRaises(ValueError):
+                    validate_decision({**good,**fields},{3:21},25)
+
+    def test_unbounded_deadline_witness_has_one_epoch(self):
+        from verify_workflow import validate_decision
+        good = dict(feasible=True,unbounded=True,maximum_setup=None,epochs=1,service=3)
+        validate_decision(good,{1:3,2:2},5)
+        for fields in (dict(epochs=2,service=2),dict(maximum_setup='0'),dict(service=6)):
+            with self.subTest(fields=fields):
+                with self.assertRaises(ValueError):
+                    validate_decision({**good,**fields},{1:3,2:2},5)
+
+    def test_workflow_consumer_rejects_nonfrontier_deadline(self):
+        from pathlib import Path
+        from verify_workflow import verify
+        directory = ROOT/'evidence/20261014/workflow-normal'
+        rawfile = directory/'raw.jsonl'
+        original_read = Path.read_text
+        row = json.loads(original_read(rawfile).splitlines()[0])
+        row['decision']['epochs'] = 1; row['decision']['service'] = row['deadline']
+        def read(path,*args,**kwargs):
+            return json.dumps(row)+'\n' if path == rawfile else original_read(path,*args,**kwargs)
+        with patch.object(Path,'read_text',read):
+            with self.assertRaisesRegex(ValueError,'not a frontier point'):
+                verify(directory, ROOT/'results/horizon/weighted.jsonl')
+
     def test_child_interpreter_preserves_optimization(self):
         command = python_command('reproduce.py')
         self.assertEqual(command.count('-O'), sys.flags.optimize)

@@ -20,6 +20,26 @@ def setup_cap(frontier, deadline):
     return max(values)
 
 
+def validate_decision(decision, frontier, deadline):
+    """Bind a deadline witness to its completed frontier before using algebra."""
+    cap = setup_cap(frontier, deadline)
+    if decision.get('feasible') is not True or decision.get('unbounded') is not (cap is None):
+        raise ValueError('incorrect deadline decision')
+    epochs, service = decision.get('epochs'), decision.get('service')
+    if (type(epochs) is not int or epochs < 1 or type(service) is not int
+            or service < 1 or frontier.get(epochs) != service):
+        raise ValueError('deadline witness is not a frontier point')
+    if cap is None:
+        if epochs != 1 or decision.get('maximum_setup') is not None or service > deadline:
+            raise ValueError('invalid unbounded deadline witness')
+    else:
+        maximum = decision.get('maximum_setup')
+        if type(maximum) not in (str, int, Fraction) or Fraction(maximum) != cap:
+            raise ValueError('incorrect maximum setup')
+        if epochs == 1 or service + (epochs-1)*cap != deadline:
+            raise ValueError('deadline witness fails exact algebra')
+
+
 def verify(directory, frontiers):
     texts = (ROOT/'inputs/weighted.jsonl').read_text().splitlines()
     inputs = {json.loads(text)['case']: (json.loads(text), hashlib.sha256(text.encode()).hexdigest()) for text in texts}
@@ -51,15 +71,7 @@ def verify(directory, frontiers):
         deadline = certs[1]['makespan'] + 2
         if row['deadline'] != deadline:
             raise ValueError('different consumer deadline')
-        cap = setup_cap(sp, deadline)
-        decision = row['decision']
-        if decision.get('feasible') is not True or decision.get('unbounded') is not (cap is None):
-            raise ValueError('incorrect deadline decision')
-        if cap is not None:
-            if Fraction(decision['maximum_setup']) != cap:
-                raise ValueError('incorrect maximum setup')
-            if decision['service'] + (decision['epochs']-1)*cap != deadline:
-                raise ValueError('deadline witness fails exact algebra')
+        validate_decision(row['decision'], sp, deadline)
         timing = row['timing_ns']
         parts = ('input_decode', 'initialize_and_solve', 'reconstruct', 'validate', 'serialize_decode_replay', 'deadline_query')
         if any(type(timing[k]) is not int or timing[k] < 0 for k in (*parts, 'total', 'cpu_total')) or sum(timing[k] for k in parts) != timing['total']:

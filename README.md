@@ -20,7 +20,7 @@ From this directory:
 python reproduce_all.py
 ```
 
-This runs the current default suite's **99 test methods** and verifies both retained result sets. A method may enumerate multiple inputs or parameter settings; 99 is not a count of scheduling cases or counterexamples. It does not recompute the full campaigns. Comparing supplied results with retained data does not by itself establish fresh optimization. The historical 82-method record is unchanged.
+This runs the current default suite's **102 test methods** and verifies both retained result sets. A method may enumerate multiple inputs or parameter settings; 102 is not a count of scheduling cases or counterexamples. It does not recompute the full campaigns. Comparing supplied results with retained data does not by itself establish fresh optimization. The historical 82-method record is unchanged.
 
 The six original checker-index controls are included in default discovery via
 the small test-module adapter. They can also run separately with
@@ -85,6 +85,19 @@ The inherited campaign additionally retains **80** analytical-family cases up to
 
 ## Layout and data lineage
 
+All four manuscript figures can be rebuilt directly with Python and Matplotlib:
+
+```sh
+python -B figures/test_figures.py
+python -B figures/generate.py --outdir figures
+```
+
+The generator checks the broadcast values against the exact service/count
+frontier and includes all 174 common-completion candidate-count pairs. It also
+draws the dependency construction and the stated four-task service timeline.
+Every output is a font-embedded vector PDF; no LaTeX rendering subprocess or
+private path is used. The manuscript build consumes the same generator.
+
 - `inputs/`: exact consumed JSONL inputs, including the original sets and explicit copies used by the event campaign. Fixed selection rules are in `generators.py` and `evaluate_horizon.py`.
 - `results/`: original 7,232-row reference campaign, 320 certificate packets, legacy derived data, and resource records. These are preserved supporting evidence, not obsolete alternative claims.
 - `results/horizon/`: complete event, prefix, all-matching, independent-oracle, and stress records; exact envelopes; regenerated main-paper tables and plot data.
@@ -96,6 +109,10 @@ The inherited campaign additionally retains **80** analytical-family cases up to
 A low-level resumable run uses `reproduce.py --output-dir fresh-base --seconds 20` and `evaluate_horizon.py --output-dir fresh-event --seconds 20`; repeat each until its summary says complete, then use the corresponding `verify_results.py` or `verify_horizon.py` verifier. `reproduce_all.py` is the documented one-command alternative. Input regeneration is optional and overwrites named files; ordinary reproduction consumes retained inputs rather than silently regenerating them.
 
 ## Current controlled reproduction and full offline costs
+
+Result verification binds family and port metadata to the frozen input. The
+independent deadline consumer requires its witness to belong to the completed
+frontier before checking the threshold algebra.
 
 The dated `evidence/20261014/` directory keeps current raw observations separate
 from the unchanged historical `results/`. Normal and optimized full campaigns

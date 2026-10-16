@@ -57,8 +57,15 @@ def engine(record, n):
 
 
 def validate_row(row, raw, phase):
-    if row['case'] != raw['case'] or row['tasks'] != len(raw['tasks']):
+    if (row['case'] != raw['case'] or type(row['tasks']) is not int
+            or row['tasks'] != len(raw['tasks'])):
         raise ValueError('result/input identity mismatch')
+    # Oracle rows have a compact schema without grouping metadata. Any supplied
+    # metadata is still bound; all grouped campaign phases require both fields.
+    for field, kind in (('ports', int), ('family', str)):
+        if phase != 'oracle' or field in row:
+            if type(row.get(field)) is not kind or row[field] != raw[field]:
+                raise ValueError('result/input identity mismatch: '+field)
     h, p = engine(row['horizon'], row['tasks']), engine(row['prefix'], row['tasks'])
     if h is not None and p is not None:
         if h != p or row.get('agreement') is not True:

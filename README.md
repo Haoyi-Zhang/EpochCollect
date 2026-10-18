@@ -159,3 +159,7 @@ stress failure remain in the evidence.
 No model is trained, so the relevant bias is selective instance design, not learned-parameter overfitting. Complete declared small domains, fixed larger families, all-setup envelopes, independent implementations, negative controls, and retained failures address that risk within the stated domain. They do not make generated inputs representative of deployed workloads.
 
 Readable proofs support the general results; finite checks test implementation consistency without proof-assistant verification. The implementation is not hardened against arbitrary hostile input or offered as production control software. Human authors must examine correctness, authorship, and current publication policies before external use. Source/generated inputs and written materials carry the licenses in `LICENSE`, subject to the rights of the eventual human copyright holders; see `THIRD-PARTY-NOTICES.md`.
+
+## Portable path notation
+
+Published execution records use `<PYTHON_ROOT>`, `<NODE_ROOT>`, `<RUNTIME_ROOT>` and `<PROJECTS_ROOT>` for machine-local installation and workspace prefixes. These are path aliases, not literal directories; substitute the corresponding local roots when replaying a command. Recorded interpreter and dependency versions, inputs, measurements and outcomes are unchanged. File inventories bind the published portable serializations; any `recorded_` identity denotes the pre-normalization bytes.

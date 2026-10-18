@@ -1,4 +1,4 @@
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O -m unittest discover -s tests -p *test*.py -v
+<PYTHON_ROOT>\python.exe -B -O -m unittest discover -s tests -p *test*.py -v
 test_all_6912_fifo_encodings (checker_index_regression.CheckerIndexRegression.test_all_6912_fifo_encodings) ... ok
 test_canonical_certificates_and_rejections (checker_index_regression.CheckerIndexRegression.test_canonical_certificates_and_rejections) ... ok
 test_direct_overlap_and_half_open_boundaries (checker_index_regression.CheckerIndexRegression.test_direct_overlap_and_half_open_boundaries) ... ok
@@ -100,7 +100,7 @@ test_stored_interval_structure_is_checked_on_replay (test_robust.RobustTest.test
 Ran 96 tests in 0.958s
 
 OK
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O verify_results.py results
+<PYTHON_ROOT>\python.exe -B -O verify_results.py results
 {
   "status": "EXACT_SCIENTIFIC_MATCH",
   "result_rows": 7232,
@@ -111,7 +111,7 @@ C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\
   "fresh_execution_established": false,
   "meaning": "supplied finite results match retained data and certificates were replayed; comparison alone does not establish fresh optimization or a general machine proof"
 }
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O verify_horizon.py results/horizon
+<PYTHON_ROOT>\python.exe -B -O verify_horizon.py results/horizon
 {
   "exhaustive": {
     "records": 6912,
@@ -134,13 +134,13 @@ C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\
     "fresh_agreement": false
   }
 }
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O reproduce.py --output-dir D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base --seconds 20 --portable
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O evaluate_horizon.py --output-dir D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --seconds 20 --portable
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O evaluate_horizon.py --output-dir D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --seconds 20 --portable
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O verify_results.py D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O verify_horizon.py D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --against results/horizon
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O make_tables.py --output-dir D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base
-C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -O make_horizon_tables.py --results D:\CodexProjects\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event
+<PYTHON_ROOT>\python.exe -B -O reproduce.py --output-dir <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base --seconds 20 --portable
+<PYTHON_ROOT>\python.exe -B -O evaluate_horizon.py --output-dir <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --seconds 20 --portable
+<PYTHON_ROOT>\python.exe -B -O evaluate_horizon.py --output-dir <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --seconds 20 --portable
+<PYTHON_ROOT>\python.exe -B -O verify_results.py <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base
+<PYTHON_ROOT>\python.exe -B -O verify_horizon.py <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event --against results/horizon
+<PYTHON_ROOT>\python.exe -B -O make_tables.py --output-dir <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\base
+<PYTHON_ROOT>\python.exe -B -O make_horizon_tables.py --results <PROJECTS_ROOT>\wg-check\substantive-library\P042\artifact\evidence\20261014\optimized\event
 {
   "retained_checks_complete": true,
   "fresh_execution": true,
@@ -152,7 +152,7 @@ C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\
   "base_environment": {
     "platform": "Windows-11-10.0.28000-SP0",
     "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
-    "executable": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "executable": "<PYTHON_ROOT>\\python.exe",
     "optimization": 1,
     "cpu_affinity": [
       0
@@ -164,7 +164,7 @@ C:\Users\Administrator\.cache\codex-runtimes\codex-primary-runtime\dependencies\
   "event_environment": {
     "platform": "Windows-11-10.0.28000-SP0",
     "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
-    "executable": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "executable": "<PYTHON_ROOT>\\python.exe",
     "optimization": 1,
     "cpu_affinity": [
       0

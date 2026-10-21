@@ -66,6 +66,10 @@ def validate_row(row, raw, phase):
         if phase != 'oracle' or field in row:
             if type(row.get(field)) is not kind or row[field] != raw[field]:
                 raise ValueError('result/input identity mismatch: '+field)
+    for field, required in (('policy', phase in ('exhaustive', 'weighted')),
+                            ('all_matchings', phase == 'weighted')):
+        if (required or field in row) and not isinstance(row.get(field), dict):
+            raise ValueError(f'{phase} requires {field} to be a mapping')
     h, p = engine(row['horizon'], row['tasks']), engine(row['prefix'], row['tasks'])
     if h is not None and p is not None:
         if h != p or row.get('agreement') is not True:

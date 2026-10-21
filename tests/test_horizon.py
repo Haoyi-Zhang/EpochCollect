@@ -312,7 +312,7 @@ class HorizonTest(unittest.TestCase):
     def test_verifier_rejects_tampered_frontier(self):
         from evaluate_horizon import run_reference
         from verify_horizon import validate_row
-        raw = fork(2,7); raw['case']='test'; raw['family']='fork'
+        raw = fork(2,7); raw['case']='weighted-test'; raw['family']='fork'
         good = run_reference(raw)
         validate_row(good,raw,'weighted')
         for field, value in (('family','allreduce'),('ports',10000),('ports',True)):

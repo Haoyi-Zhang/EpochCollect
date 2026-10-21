@@ -20,7 +20,7 @@ From this directory:
 python reproduce_all.py
 ```
 
-This runs the current default suite's **102 test methods** and verifies both retained result sets. A method may enumerate multiple inputs or parameter settings; 102 is not a count of scheduling cases or counterexamples. It does not recompute the full campaigns. Comparing supplied results with retained data does not by itself establish fresh optimization. The historical 82-method record is unchanged.
+This runs the default regression suite and verifies both retained result sets. A method may enumerate multiple inputs or parameter settings. It does not recompute the full campaigns. Comparing supplied results with retained data does not by itself establish fresh optimization. The historical 82-method record is unchanged.
 
 The six original checker-index controls are included in default discovery via
 the small test-module adapter. They can also run separately with
